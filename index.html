@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="">
+<!-- 设置文档的语言为简体中文 -->
+<html lang="zh-CN">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 指定字符编码为 UTF-8，确保页面能够正确显示各种语言的字符 -->
+    <meta charset="UTF-8" />
+    <!-- 设置网站图标，这里使用的是位于根目录下的 /public/favicon.ico 文件 -->
+    <link rel="icon" href="/favicon.ico" />
+    <!-- 设置视口（viewport）元标签，以确保网页在移动设备上的显示效果。width=device-width 表示宽度等于当前设备的宽度，initial-scale=1.0 表示初始缩放比例为 1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 设置网页标题，显示在浏览器标签页上 -->
     <title>Vite App</title>
   </head>
+
   <body>
+    <!-- 定义一个 div 元素，id 为 "app"。Vue 应用将会挂载到这个元素上，所有由 Vue 管理的内容将插入或替换这个元素 -->
     <div id="app"></div>
+    <!-- 引入 JavaScript 模块文件 main.js，它是 Vue 应用的入口文件。type="module" 属性表示这是一个 ES6 模块脚本 -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

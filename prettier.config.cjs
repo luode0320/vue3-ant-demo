@@ -1,9 +1,10 @@
 // 配置几个常用的就可以
+// 如果package.json 中 "type": "module", 那么需要将prettier.config.js改成prettier.config.cjs
 module.exports = {
 	// 一行最多多少个字符
 	printWidth: 150,
 	// 指定每个缩进级别的空格数
-	tabWidth: 2,
+	tabWidth: 4,
 	// 使用制表符而不是空格缩进行
 	useTabs: true,
 	// 在语句末尾打印分号
