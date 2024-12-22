@@ -2,7 +2,7 @@
 // 如果package.json 中 "type": "module", 那么需要将prettier.config.js改成prettier.config.cjs
 module.exports = {
 	// 一行最多多少个字符
-	printWidth: 150,
+	printWidth: 200,
 	// 指定每个缩进级别的空格数
 	tabWidth: 2,
 	// 使用制表符而不是空格缩进行
@@ -37,7 +37,7 @@ module.exports = {
 	// 指定HTML文件的全局空格敏感度 css\strict\ignore
 	htmlWhitespaceSensitivity: 'css',
 	// Vue文件脚本和样式标签缩进
-	vueIndentScriptAndStyle: false,
+	vueIndentScriptAndStyle: true,
 	// 换行符使用 lf 结尾是 可选值"<auto|lf|crlf|cr>"
 	endOfLine: 'lf',
 };
