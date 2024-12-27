@@ -2,7 +2,7 @@
 	<div>
 		<!-- 操作按钮区域 -->
 		<div style="margin-bottom: 16px">
-			<!-- 加载数据按钮，只有当有选中行时才可用，点击后触发重新加载 -->
+			<!-- 加载数据按钮，只有当有选中行时disabled才可用，点击后触发start重新加载 -->
 			<a-button type="primary" :disabled="!hasSelected" :loading="state.loading" @click="start"> 刷新 </a-button>
 			<span style="margin-left: 8px">
 				<!-- 当前选中的行数提示 -->
