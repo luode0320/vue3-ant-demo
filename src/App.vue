@@ -92,8 +92,6 @@
 	onMounted(async () => {
 		// 构建多层级菜单结构
 		menuStructure.value = buildMenuStructure(componentFiles);
-
-		console.log('多层级菜单结构:', menuStructure.value);
 	});
 
 	const loadDemo = async (fullPath) => {
