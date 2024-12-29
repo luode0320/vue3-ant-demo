@@ -9,7 +9,7 @@ import 'ant-design-vue/dist/reset.css';
 
 // 加载vue
 const app = createApp(App);
-// 加载组件库
+// 加载Ant Design Vue组件库
 app.use(Antd);
 // 绑定
 app.mount('#app');

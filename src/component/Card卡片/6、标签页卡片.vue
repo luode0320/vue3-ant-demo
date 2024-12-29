@@ -1,5 +1,9 @@
 <template>
-	<!-- 第一个 a-card 组件，设置宽度为100%，并指定了标题和标签列表 -->
+	<!-- 
+		第一个 a-card 组件，设置宽度为100%，并指定了标题和标签列表。
+		active-tab-key是标签的名称, 也就是说这个值是什么, 外面的页面标签就展示什么
+		tabChange的参数key也是标签, 我们点击其他标签就会将用标签的key触发这个事件, 在这个事件中我们又重新赋值active-tab-key, 就可以展示这个点击的标签名称了
+	 -->
 	<a-card style="width: 100%" title="卡片标题" :tab-list="tabList" :active-tab-key="key" @tabChange="(key) => onTabChange(key, 'key')">
 		<!-- 自定义标签模板，仅当标签key为 'tab1' 时显示 Home 图标, customItem 是 tabList 中的一个对象, 可以覆盖默认行为 -->
 		<template #customTab="customItem">
