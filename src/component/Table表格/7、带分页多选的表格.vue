@@ -24,20 +24,19 @@
         row-selection.selectedRowKeys: 当前已经选中项的 key 数组，需要和 onChange 进行配合更新
         row-selection.onSelectChange: 选中项发生变化时的回调
 		-->
-		<a-table :row-selection="{ selectedRowKeys: state.selectedRowKeys, onChange: onSelectChange }" :columns="columns" :data-source="data" :pagination="paginationConfig"> </a-table>
+		<a-table
+			:row-selection="{ selectedRowKeys: state.selectedRowKeys, onChange: onSelectChange }"
+			:columns="columns"
+			:data-source="data"
+			:pagination="paginationConfig"
+			@change="handleTableChange"
+			bordered
+		>
+		</a-table>
 	</div>
 </template>
 <script setup>
 	import { computed, reactive } from 'vue';
-
-	// 分页配置：根据数据源动态计算是否显示分页控件
-	const paginationConfig = computed(() => ({
-		total: dataSource.value.length,
-		hideOnSinglePage: true, // 没有数据或只有一页数据时隐藏分页栏
-		showSizeChanger: true, // 允许用户选择每页显示多少条记录
-		showQuickJumper: true, // 显示快速跳转输入框
-		defaultPageSize: 10, // 默认每页显示的数量
-	}));
 
 	// 定义表格列配置
 	const columns = [
@@ -63,6 +62,16 @@
 		loading: false, // 表示是否正在加载数据的状态
 	});
 
+	// 分页配置：根据数据源动态计算是否显示分页控件
+	const paginationConfig = computed(() => ({
+		total: data.length,
+		showSizeChanger: true, // 允许用户选择每页显示多少条记录
+		defaultCurrent: 1, // 默认当前页码
+		defaultPageSize: 2, // 默认每页显示的数量
+		showTotal: function (total) {
+			return `共 ${total} 条`;
+		},
+	}));
 	// 计算属性，判断是否有选中行
 	const hasSelected = computed(() => state.selectedRowKeys.length > 0);
 
@@ -75,6 +84,16 @@
 			state.loading = false; // 操作完成后关闭加载状态
 			state.selectedRowKeys = []; // 清空已选中的行
 		}, 1000); // 这里用 setTimeout 模拟异步延迟
+	};
+
+	// 处理表格变化事件（如分页、排序、筛选等）
+	const handleTableChange = (newPagination, filters, sorter) => {
+		console.log('Various parameters', newPagination, filters, sorter);
+		pagination.current = newPagination.current;
+		pagination.pageSize = newPagination.pageSize;
+		// 根据需要更新数据源和分页信息
+		// 可以在这里调用 API 获取新数据
+		// 通常我们改成分页的时候是需要重新请求接口获取的
 	};
 
 	// 当表格行选择发生变化时调用此方法, selectedRowKeys是最新被选择的所有key

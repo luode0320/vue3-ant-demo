@@ -1,39 +1,44 @@
 <template>
-	<a-layout class="container">
-		<a-layout-sider width="200" style="background: #fff">
-			<a-menu mode="inline" :default-selected-keys="[currentComponent ? currentComponent.name : '']">
-				<template v-for="item in menuStructure" :key="item.key">
-					<a-sub-menu v-if="item.children" :key="item.key" :title="item.title">
-						<template v-for="subItem in item.children" :key="subItem.key">
-							<a-sub-menu v-if="subItem.children" :key="subItem.key" :title="subItem.title">
-								<a-menu-item v-for="child in subItem.children" :key="child.key" :title="child.title" @click="loadDemo(child.key)">
-									{{ child.title }}
+	<a-locale-provider :locale="locale">
+		<a-layout class="container">
+			<a-layout-sider width="200" style="background: #fff">
+				<a-menu mode="inline" :default-selected-keys="[currentComponent ? currentComponent.name : '']">
+					<template v-for="item in menuStructure" :key="item.key">
+						<a-sub-menu v-if="item.children" :key="item.key" :title="item.title">
+							<template v-for="subItem in item.children" :key="subItem.key">
+								<a-sub-menu v-if="subItem.children" :key="subItem.key" :title="subItem.title">
+									<a-menu-item v-for="child in subItem.children" :key="child.key" :title="child.title" @click="loadDemo(child.key)">
+										{{ child.title }}
+									</a-menu-item>
+								</a-sub-menu>
+								<a-menu-item v-else :key="subItem.loader" @click="loadDemo(subItem.key)">
+									{{ subItem.title }}
 								</a-menu-item>
-							</a-sub-menu>
-							<a-menu-item v-else :key="subItem.loader" @click="loadDemo(subItem.key)">
-								{{ subItem.title }}
-							</a-menu-item>
-						</template>
-					</a-sub-menu>
-					<a-menu-item v-else :key="item.loader" @click="loadDemo(item.key)">
-						{{ item.title }}
-					</a-menu-item>
-				</template>
-			</a-menu>
-		</a-layout-sider>
-		<a-layout-content style="padding: 0 16px; background: #fff">
-			<a-spin :spinning="loading">
-				<component :is="currentComponent" v-if="currentComponent" />
-			</a-spin>
-		</a-layout-content>
-	</a-layout>
+							</template>
+						</a-sub-menu>
+						<a-menu-item v-else :key="item.loader" @click="loadDemo(item.key)">
+							{{ item.title }}
+						</a-menu-item>
+					</template>
+				</a-menu>
+			</a-layout-sider>
+			<a-layout-content style="padding: 0 16px; background: #fff">
+				<a-spin :spinning="loading">
+					<component :is="currentComponent" v-if="currentComponent" />
+				</a-spin>
+			</a-layout-content>
+		</a-layout>
+	</a-locale-provider>
 </template>
+
 <script setup>
 	import { ref, markRaw, onMounted } from 'vue';
 	import { message } from 'ant-design-vue';
+	import zhCN from 'ant-design-vue/lib/locale/zh_CN'
 
 	// 使用 import.meta.glob 动态导入所有 .vue 文件，包括子目录
 	const componentFiles = import.meta.glob('./component/**/*.vue');
+	const locale = ref(zhCN);
 	const currentComponent = ref(null);
 	const loading = ref(false);
 	const menuStructure = ref([]);
@@ -97,7 +102,7 @@
 	const loadDemo = async (fullPath) => {
 		try {
 			loading.value = true;
-			const component = await import('./component/' + fullPath + '.vue');
+			const component = await /* @vite-ignore */ import('./component/' + fullPath + '.vue');
 			currentComponent.value = markRaw(component.default);
 		} catch (error) {
 			message.error(`Failed to load ${fullPath}: ${error.message}`);
